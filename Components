@@ -1,0 +1,84 @@
+# Components of NIRBHAYA: The Securix
+
+The **NIRBHAYA** app is a Python-based desktop application designed to enhance personal safety. It integrates **real-time face detection, emotion detection, voice recording/playback, and GPS tracking** into a single interface using **PyQt6**. Below are the detailed components:
+
+---
+
+## 1. GUI Component (PyQt6)
+**Purpose:** Provides the main interface for user interaction.  
+
+**Features:**
+- Buttons for each feature:
+  - Start Face Detection
+  - Detect Emotion
+  - Record Voice
+  - Play Recording
+  - Show Location
+- Uses a **vertical layout (`QVBoxLayout`)** to organize elements.
+- Handles user interactions using **signal-slot connections**.
+- Displays alerts and messages using **QMessageBox** for location or errors.
+
+**Python Module:** `PyQt6.QtWidgets`
+
+---
+
+## 2. Face Detection Component
+**Purpose:** Detects faces in real-time using the computer camera.  
+
+**Features:**
+- Captures video feed from the webcam (`cv2.VideoCapture`).
+- Uses OpenCV's **Haar Cascade Classifier** for face detection.
+- Draws bounding boxes around detected faces.
+- Runs continuously until the user quits by pressing `q`.
+
+**Python Module:** `cv2` (OpenCV)
+
+---
+
+## 3. Emotion Detection Component
+**Purpose:** Detects emotions (Happy, Neutral, Sad, Nervous) from facial landmarks.  
+
+**Features:**
+- Uses **MediaPipe Face Mesh** for detecting detailed facial landmarks.
+- Analyzes mouth and eyebrow positions to classify emotions.
+- Displays emotion labels directly on the video feed.
+- Runs in real-time and continuously updates until the user quits.
+
+**Python Module:** `mediapipe`, `cv2`
+
+---
+
+## 4. Voice Recording and Playback Component
+**Purpose:** Records and plays audio for user safety or alerts.  
+
+**Features:**
+- Records audio from the microphone using `sounddevice`.
+- Saves recordings as `voice_recording.wav`.
+- Plays audio recordings via the system's default media player.
+- Default recording duration: 5 seconds (can be adjusted).
+
+**Python Module:** `sounddevice`, `scipy.io.wavfile`, `os`
+
+---
+
+## 5. GPS Location Component
+**Purpose:** Provides the user's current geographic location.  
+
+**Features:**
+- Fetches location using IP-based geocoding (`geocoder.ip('me')`).
+- Displays latitude and longitude in a popup.
+- Handles errors if location cannot be retrieved.
+
+**Python Module:** `geocoder`
+
+---
+
+## 6. Entry Point
+**Purpose:** Initializes the application and launches the GUI.  
+
+**Features:**
+- Creates a **QApplication** instance.
+- Displays the main `NirbhayaApp` window.
+- Ensures clean exit of the application using `sys.exit(app.exec())`.
+
+**Python Module:** `sys`, `PyQt6.QtWidgets`
